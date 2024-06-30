@@ -52,7 +52,7 @@ export default {
         id: store.posts.length + 1,
         title: this.post.title,
         content: this.post.content,
-        image: this.post.image || require('@/assets/images/defult.jpg'), // Use default image if none uploaded
+        image: this.post.image || require('@/assets/images/defult.jpg'), 
         date: new Date().toLocaleDateString(),
         author: 'Unknown'
       };
