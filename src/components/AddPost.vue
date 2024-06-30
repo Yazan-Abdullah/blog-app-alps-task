@@ -11,6 +11,11 @@
         <label>Content:</label>
         <textarea v-model="post.content" rows="5" required class="form-control"></textarea>
       </div>
+
+      <div class="form-group">
+        <label>Image:</label>
+        <input type="file" @change="onImageChange" class="form-control">
+      </div>
       
       <button type="submit" class="btn btn-primary">Save Post</button>
     </form>
@@ -18,6 +23,8 @@
 </template>
 
 <script>
+import { store } from '@/store';
+
 export default {
   name: 'AddPost',
   data() {
@@ -25,14 +32,33 @@ export default {
       post: {
         title: '',
         content: '',
+        image: '', // Placeholder for image URL
       },
     };
   },
   methods: {
+    onImageChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.post.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    },
     savePost() {
-      // Implement save logic (e.g., API call or local storage)
-      console.log('Saving post:', this.post);
-      // Redirect to home or post list after saving
+      const newPost = {
+        id: store.posts.length + 1,
+        title: this.post.title,
+        content: this.post.content,
+        image: this.post.image || require('@/assets/images/defult.jpg'), // Use default image if none uploaded
+        date: new Date().toLocaleDateString(),
+        author: 'Unknown'
+      };
+
+      store.posts.push(newPost);
+      console.log('Saving post:', newPost);
       this.$router.push('/');
     },
   },
@@ -40,6 +66,7 @@ export default {
 </script>
 
 <style scoped>
+/* Existing styles */
 .add-post {
   max-width: 600px;
   margin: 0 auto;
