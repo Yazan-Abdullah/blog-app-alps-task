@@ -1,7 +1,6 @@
 <template>
-  <div class="blog-home">
-    
-    <router-link to="/add-post" class="btn btn-primary">Add Post</router-link>
+  <div class="blog-home">    
+    <router-link to="/add-post" class="btn btn-primary"><i class="fas fa-plus"></i>Add Post</router-link>
     <PostList />
   </div>
 </template>
@@ -22,9 +21,8 @@ export default {
   width: calc(100% - 20px);
   margin: 0 auto;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #242222;
   border: 1px solid #e0e0e0;
-  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
 }
@@ -43,9 +41,10 @@ export default {
 .btn {
   display: inline-block;
   margin-bottom: 20px;
-  padding: 12px 24px;
+  margin-left: 10px;
+  padding: 12px 14px;
   font-size: 1rem;
-  background-color: #3498db;
+  background-color: #54a345;
   color: #fff;
   border: none;
   border-radius: 5px;

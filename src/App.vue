@@ -22,7 +22,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: #201f1f;
   color: #333;
 }
 
@@ -45,3 +45,4 @@ button {
   padding: 20px;
 }
 </style>
+
