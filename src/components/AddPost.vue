@@ -16,14 +16,23 @@
         <label>Image:</label>
         <input type="file" @change="onImageChange" class="form-control">
       </div>
-      
+
+      <div class="form-group">
+        <label>Time Spent:</label>
+        <div class="timer">
+          <span>{{ timeSpent }}</span>
+          <button type="button" @click="startTimer" class="btn btn-success">Start</button>
+          <button type="button" @click="stopTimer" class="btn btn-warning">Stop</button>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-primary">Save Post</button>
     </form>
   </div>
 </template>
 
 <script>
-import { store } from '@/store';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'AddPost',
@@ -32,11 +41,23 @@ export default {
       post: {
         title: '',
         content: '',
-        image: '', // Placeholder for image URL
+        image: '',
+        timeSpent: '00:00:00'
       },
+      timer: null,
+      seconds: 0,
     };
   },
+  computed: {
+    timeSpent() {
+      const hours = Math.floor(this.seconds / 3600).toString().padStart(2, '0');
+      const minutes = Math.floor((this.seconds % 3600) / 60).toString().padStart(2, '0');
+      const seconds = (this.seconds % 60).toString().padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+    },
+  },
   methods: {
+    ...mapActions(['addPost']),
     onImageChange(event) {
       const file = event.target.files[0];
       if (file) {
@@ -47,26 +68,40 @@ export default {
         reader.readAsDataURL(file);
       }
     },
+    startTimer() {
+      if (!this.timer) {
+        this.timer = setInterval(() => {
+          this.seconds++;
+        }, 1000);
+      }
+    },
+    stopTimer() {
+      clearInterval(this.timer);
+      this.timer = null;
+    },
     savePost() {
       const newPost = {
-        id: store.posts.length + 1,
+        id: this.$store.state.posts.length + 1,
         title: this.post.title,
         content: this.post.content,
-        image: this.post.image || require('@/assets/images/defult.jpg'), 
+        image: this.post.image || require('@/assets/images/defult.jpg'),
         date: new Date().toLocaleDateString(),
-        author: 'Unknown'
+        author: 'Unknown',
+        timeSpent: this.timeSpent
       };
 
-      store.posts.push(newPost);
+      this.addPost(newPost);
       console.log('Saving post:', newPost);
       this.$router.push('/');
     },
   },
+  beforeUnmount() {
+    this.stopTimer();
+  }
 };
 </script>
 
 <style scoped>
-/* Existing styles */
 .add-post {
   max-width: 600px;
   margin: 0 auto;
@@ -111,6 +146,12 @@ textarea.form-control {
   resize: vertical;
 }
 
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .btn {
   padding: 10px 20px;
   font-size: 1rem;
@@ -119,6 +160,14 @@ textarea.form-control {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.btn-success {
+  background-color: #28a745;
+}
+
+.btn-warning {
+  background-color: #ffc107;
 }
 
 .btn:hover {

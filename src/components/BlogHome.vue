@@ -24,10 +24,7 @@ export default {
   background-color: #242222;
   border: 1px solid #e0e0e0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
 }
-
-
 
 .blog-home h1 {
   margin-bottom: 30px;

@@ -4,9 +4,7 @@
       <router-link to="/" class="router-link-exact-active active">Blog Posts</router-link>
     </h1>
     <menu class="nav__menu">
-      <!-- Add your menu items here -->
       <router-link to="/" class="nav__item">Home</router-link>
-      <div></div>
     </menu>
   </nav>
 </template>
@@ -22,16 +20,12 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
   },
-  unmounted() { // Replace `destroyed` with `unmounted`
+  unmounted() {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     handleScroll() {
-      if (window.pageYOffset > 0) {
-        this.isSticky = true;
-      } else {
-        this.isSticky = false;
-      }
+      this.isSticky = window.pageYOffset > 0;
     }
   }
 };

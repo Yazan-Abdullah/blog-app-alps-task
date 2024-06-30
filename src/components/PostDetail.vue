@@ -6,6 +6,8 @@
         by <a :href="`/by/${post.author}`" class="post__author">{{ post.author }}</a>
         <span class="post__sep"></span>
         <time>{{ post.date }}</time>
+        <span class="post__sep"></span> || 
+        <span>{{ post.timeSpent }}</span>
       </h3>
     </header>
     <div class="post__body">
@@ -16,13 +18,18 @@
           <button @click="updatePost" class="btn btn-primary">Update</button>
           <button @click="deletePost" class="btn btn-danger">Delete</button>
         </div>
+        <div class="timer">
+          <span>{{ timeSpent }}</span>
+          <button @click="startTimer" class="btn btn-success">Start</button>
+          <button @click="stopTimer" class="btn btn-warning">Stop</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { store } from '@/store';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'PostDetail',
@@ -30,27 +37,63 @@ export default {
   data() {
     return {
       post: {},
+      timer: null,
+      seconds: 0,
     };
+  },
+  computed: {
+    ...mapGetters(['getPostById']),
+    timeSpent() {
+      const hours = Math.floor(this.seconds / 3600).toString().padStart(2, '0');
+      const minutes = Math.floor((this.seconds % 3600) / 60).toString().padStart(2, '0');
+      const seconds = (this.seconds % 60).toString().padStart(2, '0');
+      return `${hours}:${minutes}:${seconds}`;
+    },
   },
   created() {
     const postId = this.id;
-    this.post = store.posts.find(post => post.id == postId);
+    const post = this.getPostById(postId);
+    if (post) {
+      this.post = { ...post };
+      this.seconds = this.convertTimeToSeconds(this.post.timeSpent);
+    } else {
+      console.error(`Post with ID ${postId} not found`);
+    }
   },
   methods: {
+    ...mapActions(['deletePost', 'updatePostTime']),
     updatePost() {
       this.$router.push({ name: 'EditPost', params: { id: this.post.id } });
     },
     deletePost() {
-      store.deletePost(this.post.id);
+      this.deletePost(this.post.id);
       console.log('Deleted post with ID:', this.post.id);
       this.$router.push('/');
     },
+    startTimer() {
+      if (!this.timer) {
+        this.timer = setInterval(() => {
+          this.seconds++;
+        }, 1000);
+      }
+    },
+    stopTimer() {
+      clearInterval(this.timer);
+      this.timer = null;
+      this.updatePostTime({ id: this.post.id, timeSpent: this.timeSpent });
+    },
+    convertTimeToSeconds(time) {
+      const [hours, minutes, seconds] = time.split(':').map(Number);
+      return (hours * 3600) + (minutes * 60) + seconds;
+    },
   },
+  beforeUnmount() {
+    this.stopTimer();
+  }
 };
 </script>
 
 <style scoped>
-/* Existing styles */
 .post {
   width: calc(100% - 20px);
   margin: 0 auto;
@@ -95,7 +138,7 @@ export default {
 .post__figure {
   flex: 1 1 33%;
   height: auto;
-  padding-top: 33%; /* This gives an approximate aspect ratio */
+  padding-top: 33%;
   background-size: cover;
   background-position: center;
   border-radius: 10px;
@@ -110,6 +153,13 @@ export default {
 
 .post__actions {
   margin-top: 20px;
+}
+
+.timer {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .btn {
@@ -140,5 +190,23 @@ export default {
 
 .btn-danger:hover {
   background-color: #c82333;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
 }
 </style>

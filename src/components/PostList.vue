@@ -11,6 +11,7 @@
             <div class="preview__meta">
               <time class="preview__published">{{ post.date }}</time>
               <a href="#" class="preview__author">{{ post.author }}</a>
+              <span>{{ post.timeSpent }}</span> <!-- Display the timeSpent here -->
             </div>
           </figcaption>
         </figure>
@@ -20,24 +21,16 @@
 </template>
 
 <script>
-import { store } from '@/store';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'PostList',
-  data() {
-    return {
-      posts: store.posts,
-    };
+  computed: {
+    ...mapGetters(['posts']),
   },
   methods: {
     viewPost(id) {
       this.$router.push({ name: 'PostDetail', params: { id: id } });
-    },
-    deletePost(id) {
-      // Implement delete logic (e.g., API call or local storage)
-      console.log('Deleting post with ID:', id);
-      // Remove post from this.posts
-      this.posts = this.posts.filter(post => post.id !== id);
     },
   },
 };
@@ -105,7 +98,8 @@ ul {
 
 .preview__meta {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 5px;
   margin-top: 10px;
   font-size: 0.9rem;
 }
