@@ -33,7 +33,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-
+import './styles/AddPost.css';
 export default {
   name: 'AddPost',
   data() {
@@ -101,76 +101,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.add-post {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.add-post h2 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.post-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-}
-
-textarea.form-control {
-  resize: vertical;
-}
-
-.timer {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-success {
-  background-color: #28a745;
-}
-
-.btn-warning {
-  background-color: #ffc107;
-}
-
-.btn:hover {
-  background-color: #0056b3;
-}
-</style>

@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import './styles/NavBar.css';
 export default {
   name: 'NavBar',
   data() {
@@ -31,52 +32,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f8f8f8;
-  padding: 10px 20px;
-  color: #111010;
-  transition: top 0.3s ease;
-}
-
-.sticky {
-  position: fixed;
-  top: 0;
-  width: 97%;
-  z-index: 1000; 
-}
-
-.nav__title {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.nav__title a {
-  color: #0e0d0d;
-  text-decoration: none;
-}
-
-.nav__menu {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav__item {
-  margin-left: 20px;
-  color: #141313;
-  text-decoration: none;
-}
-
-.nav__item:hover {
-  text-decoration: underline;
-}
-
-.router-link-exact-active.active {
-  font-weight: bold;
-}
-</style>

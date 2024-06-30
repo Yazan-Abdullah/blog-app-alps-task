@@ -31,6 +31,13 @@ This is a simple blog application built with Vue.js. The application allows user
 │ │ ├── image2.jpg
 │ │ └── ...
 │ ├── components
+| | └──styles
+| |    └── AddPost.css
+| |    └── BlogHome.css
+| |    └── EditPost.css
+| |    └── NavBar.css
+| |    └── PostDetail.css
+| |    └── PostList.css
 │ │ ├── AddPost.vue
 │ │ ├── BlogHome.vue
 │ │ ├── EditPost.vue

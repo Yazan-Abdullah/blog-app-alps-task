@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-/* Global styles */
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
