@@ -16,7 +16,7 @@
         <p>{{ post.content }}</p>
         <div class="post__actions">
           <button @click="updatePost" class="btn btn-primary">Update</button>
-          <button @click="deletePost" class="btn btn-danger">Delete</button>
+          <button @click="handleDeletePost" class="btn btn-danger">Delete</button>
         </div>
         <div class="timer">
           <span>{{ timeSpent }}</span>
@@ -61,32 +61,32 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['deletePost', 'updatePostTime']),
-    updatePost() {
-      this.$router.push({ name: 'EditPost', params: { id: this.post.id } });
-    },
-    deletePost() {
-      this.deletePost(this.post.id);
-      console.log('Deleted post with ID:', this.post.id);
-      this.$router.push('/');
-    },
-    startTimer() {
-      if (!this.timer) {
-        this.timer = setInterval(() => {
-          this.seconds++;
-        }, 1000);
-      }
-    },
-    stopTimer() {
-      clearInterval(this.timer);
-      this.timer = null;
-      this.updatePostTime({ id: this.post.id, timeSpent: this.timeSpent });
-    },
-    convertTimeToSeconds(time) {
-      const [hours, minutes, seconds] = time.split(':').map(Number);
-      return (hours * 3600) + (minutes * 60) + seconds;
-    },
+  ...mapActions(['deletePost', 'updatePostTime']),
+  updatePost() {
+    this.$router.push({ name: 'EditPost', params: { id: this.post.id } });
   },
+  handleDeletePost() { // Rename deletePost to handleDeletePost
+    this.deletePost(this.post.id);
+    console.log('Deleted post with ID:', this.post.id);
+    this.$router.push('/');
+  },
+  startTimer() {
+    if (!this.timer) {
+      this.timer = setInterval(() => {
+        this.seconds++;
+      }, 1000);
+    }
+  },
+  stopTimer() {
+    clearInterval(this.timer);
+    this.timer = null;
+    this.updatePostTime({ id: this.post.id, timeSpent: this.timeSpent });
+  },
+  convertTimeToSeconds(time) {
+    const [hours, minutes, seconds] = time.split(':').map(Number);
+    return (hours * 3600) + (minutes * 60) + seconds;
+  },
+},
   beforeUnmount() {
     this.stopTimer();
   }
