@@ -69,3 +69,20 @@ textarea.form-control {
 .btn:hover {
   background-color: #0056b3;
 }
+
+
+
+.add-post-btn {
+  background-color: transparent;
+  border: 2px solid #e4d7d7;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.add-post-btn:hover {
+  background-color: #333;
+  color: #fff;
+}

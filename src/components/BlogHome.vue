@@ -1,6 +1,6 @@
 <template>
   <div class="blog-home">    
-    <router-link to="/add-post" class="btn btn-primary"><i class="fas fa-plus"></i>Add Post</router-link>
+    <router-link to="/add-post" class="add-post-btn">Add Post</router-link>
     <PostList />
   </div>
 </template>

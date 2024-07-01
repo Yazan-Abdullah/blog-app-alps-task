@@ -2,18 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f8f8f8;
-    padding: 10px 20px;
+    background-color: #040e38;
     color: #111010;
     transition: top 0.3s ease;
+    height: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   
-  .sticky {
-    position: fixed;
-    top: 0;
-    width: 97%;
-    z-index: 1000; 
-  }
+ 
   
   .nav__title {
     margin: 0;
@@ -21,7 +18,7 @@
   }
   
   .nav__title a {
-    color: #0e0d0d;
+    color: whitesmoke;
     text-decoration: none;
   }
   
@@ -34,7 +31,7 @@
   
   .nav__item {
     margin-left: 20px;
-    color: #141313;
+    color: whitesmoke;
     text-decoration: none;
   }
   

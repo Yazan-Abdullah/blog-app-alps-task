@@ -22,7 +22,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #201f1f;
+  background-color: rgb(20, 18, 32);
   color: #333;
 }
 
@@ -40,8 +40,6 @@ button {
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 20px;
 }
 </style>
